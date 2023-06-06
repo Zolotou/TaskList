@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
+import "antd/dist/reset.css";
+import "./App.css";
+import { TaskList } from "./pages/TaskList";
+import {ApplicationLayout} from "./layouts/ApplicationLayout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ApplicationLayout/>}>
+          <Route path="/" element={<TaskList />} />
+        </Route>
+        <Route path="*" element={<div> NOT FOUND </div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
