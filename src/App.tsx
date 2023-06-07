@@ -5,19 +5,16 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import "antd/dist/reset.css";
-import "./App.css";
+import "./stylesheets/App.css";
 import TaskListPage from "./pages/TaskListPage";
 import {ApplicationLayout} from "./layouts/ApplicationLayout";
 import { Provider } from 'mobx-react';
-import taskListStore from "./stores/taskListStore";
+import {rootStore} from "./stores";
 
-const stores = {
-  taskListStore
-}
 
 function App() {
   return (
-      <Provider {...stores}>
+      <Provider {...rootStore}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<ApplicationLayout/>}>

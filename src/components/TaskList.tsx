@@ -1,42 +1,32 @@
 import React from "react";
 import { TaskItem } from "./TaskItem";
-
-interface ListItem {
-  value: string;
-  id: string;
-  isChecked: boolean;
-}
+import {Task} from "../models/task.model";
+import {List} from "antd";
 
 interface TaskListProps {
-  listItems: ListItem[];
+  listItems: Task[];
   deleteTask: (id: string) => void;
   checkTask: (id: string) => void;
 }
 
-// TODO: items and renderItems
 export const TaskList: React.FC<TaskListProps> = ({
   listItems,
   deleteTask,
   checkTask,
 }) => {
-  return (
-      <>
-        <h3>TASK LIST</h3>
-        <ul>
-          {listItems?.length > 0 ? (
-              listItems.map((listItem: ListItem) => (
-                  <TaskItem
-                      key={listItem.id}
-                      onChecked={() => checkTask(listItem.id)}
-                      onDelete={() => deleteTask(listItem.id)}
-                      value={listItem.value}
-                      checkedValue={listItem.isChecked}
-                  />
-              ))
-          ) : (
-              <li>List is Clear</li>
-          )}
-        </ul>
-      </>
-  );
+    return (
+        <>
+            {listItems?.length > 0 ? <List
+                header={<h3>TASK LIST</h3>}
+                bordered
+                dataSource={listItems}
+                renderItem={(item:Task) => (
+                    <List.Item>
+                        <TaskItem
+                         checkedValue={item.isChecked} onChecked={()=> checkTask(item.id)} onDelete={() => deleteTask(item.id)} value={item.value}/>
+                    </List.Item>
+                )}
+            /> : <h2>List is Clear</h2>}
+        </>
+    );
 };

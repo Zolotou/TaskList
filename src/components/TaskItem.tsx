@@ -11,16 +11,15 @@ interface TaskItemProps {
 
 export const TaskItem: React.FC<TaskItemProps> = ({ onChecked, value, checkedValue , onDelete}) => {
     const onChange= (event: CheckboxChangeEvent) => {
-        console.log('checkEvent')
         onChecked(event);
     };
 
     return (
-        <li>
+        <>
             <Space wrap>
                 <Checkbox checked={ checkedValue } onChange={onChange}>{ value }</Checkbox>
                 <Button onClick={onDelete} danger>Delete</Button>
             </Space>
-        </li>
+        </>
     );
 };

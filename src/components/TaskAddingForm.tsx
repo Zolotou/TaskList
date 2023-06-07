@@ -1,12 +1,16 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import {taskAddingFormStyle} from "../stylesheets/styles";
 
 interface TaskAddingProps {
-  createTask: (value: any) => any;
+  createTask: (value: string) => void;
 }
 
 export const TaskAddingForm: React.FC<TaskAddingProps> = ({ createTask }) => {
   const [form] = Form.useForm();
+  const { xs } = useBreakpoint();
+  const taskAddingForm = taskAddingFormStyle(xs);
   const onFinish = (values: { newTask: string }) => {
     const { newTask } = values;
     createTask(newTask);
@@ -16,9 +20,7 @@ export const TaskAddingForm: React.FC<TaskAddingProps> = ({ createTask }) => {
     <Form
       form={form}
       name="adding"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600, display: "flex", gap: "10px" }}
+      style={ taskAddingForm }
       initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"

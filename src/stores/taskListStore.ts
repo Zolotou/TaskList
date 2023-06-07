@@ -1,34 +1,65 @@
 import {makeAutoObservable} from "mobx";
-import { v4 as uuid } from "uuid";
-
-interface Task {
-    id: string;
-    value: string;
-    isChecked: boolean;
-}
+import {v4 as uuid} from "uuid";
+import {Task} from "../models/task.model";
+import {Filters} from "../models/filters";
 
 class TaskListStore {
-    tasksArray: Task[] = [{id: 'hey', value: 'value2', isChecked: true}];
+  tasksArray: Task[] = [{ id: "hey", value: "value2", isChecked: true }];
+  filters: Filters = {
+    taskStatus: "All",
+    taskValue: "",
+  };
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    createNewTask(value:string) {
-        console.log(value)
-        this.tasksArray = [ ...this.tasksArray, {id: uuid(), value, isChecked: false} ];
-        console.log(this.tasksArray)
-    }
+  get currentTaskArray() {
+    const { taskValue, taskStatus } = this.filters;
+    return this.tasksArray.filter((task) => {
+      if (taskValue && !task.value.includes(taskValue)) {
+        return false;
+      }
+      return (
+          taskStatus === "All" ||
+          (task.isChecked && taskStatus === "Completed") ||
+          (!task.isChecked && taskStatus === "InProgress")
+      );
+    });
+  }
 
-    deleteTask(id:string) {
-        this.tasksArray = this.tasksArray.filter((task) => task.id !== id);
-    }
+  get taskStatistics() {
+    const completedTasksCount = this.tasksArray.filter(task => task.isChecked).length
+    return {
+      all: this.tasksArray.length,
+      completed: completedTasksCount,
+      inProgress: this.tasksArray.length - completedTasksCount,
+    };
+  }
 
-    updateTask(id:string) {
-        this.tasksArray = this.tasksArray.map((task) => { if(task.id === id) {
-            task.isChecked = !task.isChecked
-        } return task})
-    }
+  createNewTask = (value: string): void => {
+    this.tasksArray = [
+      ...this.tasksArray,
+      { id: uuid(), value, isChecked: false },
+    ];
+  };
+
+  deleteTask = (id: string): void => {
+    this.tasksArray = this.tasksArray.filter((task) => task.id !== id);
+  };
+
+  updateTask = (id: string): void => {
+    this.tasksArray = this.tasksArray.map((task) => {
+      if (task.id === id) {
+        task.isChecked = !task.isChecked;
+      }
+      return task;
+    });
+  };
+
+  updateFilters = (filters: Filters): void => {
+    this.filters = filters;
+  };
 }
 
-export default new TaskListStore();
+export default TaskListStore;

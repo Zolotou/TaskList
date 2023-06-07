@@ -4,24 +4,27 @@ import { TaskList } from "../components/TaskList";
 import { inject, observer } from "mobx-react";
 import { TaskListFilterForm } from "../components/TaskListFilterForm";
 import { Space } from "antd";
-import taskListStore from "../stores/taskListStore";
+import { taskListStoreComponent } from "../models/taskListStoreComponent.model";
+import { Statistics } from "../components/Statistics";
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import { taskListPageStyle } from "../stylesheets/styles";
 
-const TaskListPage: React.FC<{ taskListStore?: typeof taskListStore }> = ({
-  taskListStore,
-}) => {
-  const createTask = (value: any) => taskListStore?.createNewTask(value);
-  const deleteTask = (id: string) => taskListStore?.deleteTask(id);
-  const checkTask = (id: string) => taskListStore?.updateTask(id);
-
+const TaskListPage: taskListStoreComponent = ({ taskListStore }) => {
+  const { xs } = useBreakpoint();
+  const taskListPage = taskListPageStyle(xs);
   return (
-    <Space style={{ height: '100%', display: "flex", flexDirection: "column", padding: '20px' }}>
-      <TaskListFilterForm />
-      <TaskList
-        listItems={taskListStore?.tasksArray || []}
-        checkTask={checkTask}
-        deleteTask={deleteTask}
+    <Space style={taskListPage}>
+      <TaskListFilterForm
+        filters={taskListStore!.filters}
+        updateFilters={taskListStore!.updateFilters}
       />
-      <TaskAddingForm createTask={createTask} />
+      <Statistics {...taskListStore!.taskStatistics} />
+      <TaskList
+        listItems={taskListStore!.currentTaskArray || []}
+        checkTask={taskListStore!.updateTask}
+        deleteTask={taskListStore!.deleteTask}
+      />
+      <TaskAddingForm createTask={taskListStore!.createNewTask} />
     </Space>
   );
 };
