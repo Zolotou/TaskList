@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, Space } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import {dividerStyle, statisticsStyle} from "../stylesheets/styles";
+import { dividerStyle, statisticsStyle } from "../stylesheets/styles";
 
 interface StatisticsProps {
   all: number;

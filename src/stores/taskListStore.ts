@@ -1,7 +1,7 @@
-import {makeAutoObservable} from "mobx";
-import {v4 as uuid} from "uuid";
-import {Task} from "../models/task.model";
-import {Filters} from "../models/filters";
+import { makeAutoObservable } from "mobx";
+import { v4 as uuid } from "uuid";
+import { Task } from "../models/task.model";
+import { Filters } from "../models/filters";
 
 class TaskListStore {
   tasksArray: Task[] = [{ id: "hey", value: "value2", isChecked: true }];
@@ -21,15 +21,17 @@ class TaskListStore {
         return false;
       }
       return (
-          taskStatus === "All" ||
-          (task.isChecked && taskStatus === "Completed") ||
-          (!task.isChecked && taskStatus === "InProgress")
+        taskStatus === "All" ||
+        (task.isChecked && taskStatus === "Completed") ||
+        (!task.isChecked && taskStatus === "InProgress")
       );
     });
   }
 
   get taskStatistics() {
-    const completedTasksCount = this.tasksArray.filter(task => task.isChecked).length
+    const completedTasksCount = this.tasksArray.filter(
+      (task) => task.isChecked,
+    ).length;
     return {
       all: this.tasksArray.length,
       completed: completedTasksCount,

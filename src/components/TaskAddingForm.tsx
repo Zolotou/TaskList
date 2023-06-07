@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import {taskAddingFormStyle} from "../stylesheets/styles";
+import { taskAddingFormStyle } from "../stylesheets/styles";
 
 interface TaskAddingProps {
   createTask: (value: string) => void;
@@ -20,7 +20,7 @@ export const TaskAddingForm: React.FC<TaskAddingProps> = ({ createTask }) => {
     <Form
       form={form}
       name="adding"
-      style={ taskAddingForm }
+      style={taskAddingForm}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"

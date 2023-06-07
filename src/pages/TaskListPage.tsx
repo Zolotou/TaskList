@@ -19,12 +19,12 @@ const TaskListPage: taskListStoreComponent = ({ taskListStore }) => {
         updateFilters={taskListStore!.updateFilters}
       />
       <Statistics {...taskListStore!.taskStatistics} />
+      <TaskAddingForm createTask={taskListStore!.createNewTask} />
       <TaskList
         listItems={taskListStore!.currentTaskArray || []}
         checkTask={taskListStore!.updateTask}
         deleteTask={taskListStore!.deleteTask}
       />
-      <TaskAddingForm createTask={taskListStore!.createNewTask} />
     </Space>
   );
 };

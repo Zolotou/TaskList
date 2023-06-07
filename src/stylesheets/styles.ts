@@ -28,50 +28,65 @@ export const taskListPageStyle = (
 });
 
 export const taskAddingFormStyle = (
-    isMobile: MobileConfig,
+  isMobile: MobileConfig,
 ): React.CSSProperties => ({
   display: "flex",
-  flexDirection: isMobile ? 'column' : 'row',
+  flexDirection: isMobile ? "column" : "row",
   flexWrap: "wrap",
-  gap: '10px',
-  alignItems: isMobile ? 'center' : 'end',
-  justifyContent: 'center',
+  gap: "10px",
+  alignItems: isMobile ? "center" : "end",
+  justifyContent: "center",
   padding: isMobile ? "10px" : "20px",
 });
 
-
 export const taskFilterFormStyle = (
-    isMobile: MobileConfig,
+  isMobile: MobileConfig,
 ): React.CSSProperties => ({
-  minWidth: '80%',
   display: "flex",
-  flexDirection: isMobile ? 'column' : 'row',
+  flexDirection: isMobile ? "column" : "row",
   flexWrap: "wrap",
-  gap: '5px',
-  alignItems: isMobile ? 'center' : 'end',
-  justifyContent: 'center',
+  gap: "5px",
+  alignItems: isMobile ? "center" : "end",
+  justifyContent: "center",
   padding: isMobile ? "5px" : "10px",
 });
 
-export const radioGroupStyle = (
-): React.CSSProperties => ({
+export const radioGroupStyle = (): React.CSSProperties => ({
   width: "100%",
   display: "flex",
-  flexDirection:  'row',
+  flexDirection: "row",
   flexWrap: "wrap",
-  alignItems: 'center',
-  justifyContent: 'center',
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 export const statisticsStyle = (
-    isMobile: MobileConfig,
+  isMobile: MobileConfig,
 ): React.CSSProperties => ({
-  marginBottom: '10px',
-  flexDirection: isMobile ? 'column' : 'row',
+  marginBottom: "10px",
+  flexDirection: isMobile ? "column" : "row",
 });
 
-export const dividerStyle = (
-    isMobile: MobileConfig,
+export const dividerStyle = (isMobile: MobileConfig): React.CSSProperties => ({
+  border: isMobile ? "unset" : "1px solid black",
+});
+
+export const taskListStyle = (isMobile: MobileConfig): React.CSSProperties => ({
+  minWidth: isMobile ? "100%" : "400px",
+  maxWidth: "100vh",
+});
+
+export const taskItemStyle = (): React.CSSProperties => ({
+  width: "100%",
+  flexWrap: "nowrap",
+  justifyContent: "space-between",
+});
+
+export const taskCheckBoxStyle = (
+  isMobile: MobileConfig,
 ): React.CSSProperties => ({
-  border:  isMobile? 'unset' : '1px solid black'
+  maxWidth: isMobile ? "150px" : "350px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  justifyContent: "space-between",
 });
